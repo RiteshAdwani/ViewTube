@@ -21,7 +21,6 @@ export const getCommentsOfVideoById = createAsyncThunk(
       });
       dispatch(commentListSuccess(data.items));
     } catch (error) {
-      console.log(error);
       dispatch(commentListFail(error));
     }
   }
@@ -54,8 +53,7 @@ export const addComment = createAsyncThunk(
       });
       dispatch(addCommentSuccess());
       setTimeout(() => dispatch(getCommentsOfVideoById(id)), 3000);
-    } catch (error:any) {
-      console.log(error);
+    } catch (error: any) {
       dispatch(addCommentFail(error.message));
     }
   }

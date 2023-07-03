@@ -1,9 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import request from "../../api";
 import { RootState } from "../store/store";
-import { ChannelState,ChannelSubscriptionsState } from "../../utils/types";
+import { ChannelState, ChannelSubscriptionsState } from "../../utils/types";
+
 const initialChannelState: ChannelState = {
-  loading: true,
+  loading: false,
   channel: null,
   subscriptionStatus: false,
 };
@@ -21,13 +22,12 @@ export const getChannelDetails = createAsyncThunk(
       const { data } = await request("/channels", {
         params: {
           part: "snippet,statistics,contentDetails",
-          id,
+          id: id,
         },
       });
       dispatch(channelDetailsSuccess(data.items[0]));
-    } catch (error:any) {
-      console.log(error.response.data);
-      dispatch(channelDetailsFail(error.response.data));
+    } catch (error) {
+      dispatch(channelDetailsFail((error as Error).message));
     }
   }
 );
@@ -47,9 +47,8 @@ export const checkSubscriptionStatus = createAsyncThunk(
         },
       });
       dispatch(setSubscriptionStatus(data.items.length !== 0));
-    } catch (error: any) {
-      console.log(error.response.data);
-      dispatch(channelDetailsFail(error.response.data));
+    } catch (error) {
+      dispatch(channelDetailsFail((error as Error).message));
     }
   }
 );
@@ -69,12 +68,9 @@ export const getSubscribedChannels = createAsyncThunk(
           Authorization: `Bearer ${(getState() as RootState).auth.accessToken}`,
         },
       });
-
       dispatch(channelSubscriptionsSuccess(data.items));
-    } catch (error: any) {
-      console.log(error.response.data);
-      console.log((getState() as RootState).auth.accessToken);
-      dispatch(channelSubscriptionsFail(error.response.data));
+    } catch (error) {
+      dispatch(channelSubscriptionsFail((error as Error).message));
     }
   }
 );
@@ -116,7 +112,6 @@ const channelSubscriptionsSlice = createSlice({
     channelSubscriptionsFail: (state, action) => {
       state.error = action.payload;
       state.loading = false;
-      console.log("Failsss");
     },
   },
 });

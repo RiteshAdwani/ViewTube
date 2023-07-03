@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Container } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import RecommendedVideo from "../../components/horizontalVideo/HorizontalVideo";
+import HorizontalVideo from "../../components/horizontalVideo/HorizontalVideo";
 import HorizontalVideoSkeleton from "../../components/skeleton/horizontalVideoSkeleton/HorizontalVideoSkeleton";
 import { getSubscribedChannels } from "../../redux/feature/channelSlice";
 import { RootState, useAppDispatch } from "../../redux/store/store";
@@ -20,7 +20,7 @@ const SubscriptionsScreen = () => {
     <Container fluid>
       {!loading ? (
         videos?.map((video) => (
-          <RecommendedVideo
+          <HorizontalVideo
             video={video}
             key={
               typeof video.id === "string"
@@ -33,7 +33,7 @@ const SubscriptionsScreen = () => {
           />
         ))
       ) : (
-        <HorizontalVideoSkeleton/>
+        <HorizontalVideoSkeleton />
       )}
     </Container>
   );

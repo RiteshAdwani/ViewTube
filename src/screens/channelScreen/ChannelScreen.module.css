@@ -1,36 +1,35 @@
-.channelHeader{
+.channelHeader {
   border-bottom: 1px solid rgb(160, 152, 152);
 }
 
-button.subscribeBtn{
+button.subscribeBtn {
   background-color: rgba(243, 10, 10, 0.938);
   letter-spacing: 0.5px;
   border: none;
 }
 
-button.subscribeBtn:hover{
+button.subscribeBtn:hover {
   background-color: red;
 }
 
-button.subscribedBtn{
+button.subscribedBtn {
   background-color: gray;
 }
 
-
-img.channelIcon{
+img.channelIcon {
   width: 80px;
   height: 80px;
 }
 
-@media(max-width:576px){
-  img.channelIcon{
+@media (max-width: 576px) {
+  img.channelIcon {
     width: 50px;
     height: 50px;
   }
-  .channelHeader{
+  .channelHeader {
     padding: 1rem 0;
   }
-  .channelTitle{
+  .channelTitle {
     font-size: 1rem;
   }
 }

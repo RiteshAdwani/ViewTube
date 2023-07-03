@@ -2,15 +2,15 @@ import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "../store/store";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { auth } from "../../firebase";
-import { AuthState,User } from "../../utils/types";
+import { AuthState, User } from "../../utils/types";
 
 const accessToken = sessionStorage.getItem("ytc-access-token");
 const userString = sessionStorage.getItem("ytc-user");
 const user = userString ? JSON.parse(userString) : null;
 
 const initialState: AuthState = {
-  accessToken:accessToken || null,
-  user:user || null,
+  accessToken: accessToken || null,
+  user: user || null,
   loading: false,
 };
 
@@ -23,7 +23,7 @@ export const login = createAsyncThunk("auth/login", async (_, { dispatch }) => {
     console.log(res);
 
     const credential = GoogleAuthProvider.credentialFromResult(res);
-    console.log(credential)
+    console.log(credential);
 
     if (credential && credential.accessToken) {
       const profile: User = {
@@ -38,7 +38,6 @@ export const login = createAsyncThunk("auth/login", async (_, { dispatch }) => {
       dispatch(loadProfile(profile));
     }
   } catch (error) {
-    console.log((error as Error).message);
     dispatch(loginFail((error as Error).message));
   }
 });

@@ -47,7 +47,7 @@ const WatchScreen = () => {
         {!loading ? (
           <VideoMetaData selectedVideo={selectedVideo} />
         ) : (
-          <VideoMetaDataSkeleton/>
+          <VideoMetaDataSkeleton />
         )}
 
         <Comments

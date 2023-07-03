@@ -19,7 +19,9 @@ const Header = ({
   const mode = theme.palette.mode;
   const [input, setInput] = useState<string>("");
   const navigate = useNavigate();
-  const photoURL = useSelector((state: RootState) => state.auth?.user?.photoURL);
+  const photoURL = useSelector(
+    (state: RootState) => state.auth?.user?.photoURL
+  );
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

@@ -25,7 +25,9 @@ const LoginScreen = () => {
   }, [accessToken, navigate]);
 
   return (
-    <div className={`${styles.login} d-flex flex-column flex-md-row justify-content-center`}>
+    <div
+      className={`${styles.login} d-flex flex-column flex-md-row justify-content-center`}
+    >
       <img src={loginIllustration} alt="login illustration" className="w-50" />
       <div className="mx-auto">
         <div

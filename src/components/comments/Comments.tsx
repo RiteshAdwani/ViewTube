@@ -7,12 +7,16 @@ import {
   getCommentsOfVideoById,
 } from "../../redux/feature/commentSlice";
 import { useSelector } from "react-redux";
-import defaultAvatar from "../../assets/default-avatar.png"
+import defaultAvatar from "../../assets/default-avatar.png";
 import { CommentsProps } from "../../utils/types";
+import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
 
-const Comments = ({ videoId,totalComments }: CommentsProps) => {
+const Comments = ({ videoId, totalComments }: CommentsProps) => {
   const dispatch = useAppDispatch();
-  const photoURL = useSelector((state: RootState) => state.auth?.user?.photoURL) || defaultAvatar;
+  const photoURL =
+    useSelector((state: RootState) => state.auth?.user?.photoURL) ||
+    defaultAvatar;
+  const [showAllComments, setShowAllComments] = useState(false);
 
   useEffect(() => {
     dispatch(getCommentsOfVideoById(videoId));
@@ -24,16 +28,24 @@ const Comments = ({ videoId,totalComments }: CommentsProps) => {
   );
   const [commentText, setCommentText] = useState("");
 
-  const handleCommentSubmit = (e:React.FormEvent<HTMLFormElement>) => {
+  const handleCommentSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if(commentText.length === 0) return
+    if (commentText.length === 0) return;
     dispatch(addComment({ id: videoId, text: commentText }));
     setCommentText("");
-    console.log("Commented");
+  };
+
+  const toggleComments = () => {
+    setShowAllComments((prevShowAllComponents) => !prevShowAllComponents);
   };
   return (
-    <div>
-      <p>{totalComments} Comments</p>
+    <>
+      <div role="button" onClick={toggleComments}>
+        <span>{totalComments} Comments</span>
+        <span>
+          <UnfoldMoreIcon fontSize="small" />
+        </span>
+      </div>
       <div className="d-flex w-100 my-2">
         <img
           src={photoURL}
@@ -47,7 +59,7 @@ const Comments = ({ videoId,totalComments }: CommentsProps) => {
           <input
             type="text"
             placeholder="Write a comment..."
-            className={`${styles.commentInput} w-100`} 
+            className={`${styles.commentInput} w-100`}
             value={commentText}
             onChange={(e) => setCommentText(e.target.value)}
           />
@@ -57,12 +69,14 @@ const Comments = ({ videoId,totalComments }: CommentsProps) => {
         </form>
       </div>
       <hr className="my-1 ms-5 me-1" />
-      <div className="mt-4">
-        {comments?.map((comment, index) => (
-          <Comment comment={comment} key={index} />
-        ))}
-      </div>
-    </div>
+      {showAllComments && (
+        <div className="mt-4">
+          {comments?.map((comment, index) => (
+            <Comment comment={comment} key={index} />
+          ))}
+        </div>
+      )}
+    </>
   );
 };
 

@@ -1,6 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import request from "../../api";
-import { ChannelVideosState, HomeVideosState, LikedVideosState, RelatedVideosState, SearchVideosState, SelectedVideoState, Video } from "../../utils/types";
+import {
+  ChannelVideosState,
+  HomeVideosState,
+  LikedVideosState,
+  RelatedVideosState,
+  SearchVideosState,
+  SelectedVideoState,
+  Video,
+} from "../../utils/types";
 import { RootState } from "../store/store";
 
 const initialHomeVideosState: HomeVideosState = {
@@ -33,7 +41,7 @@ const initialChannelVideosState: ChannelVideosState = {
 const initialLikedVideosState: LikedVideosState = {
   videos: [],
   loading: true,
-}
+};
 
 export const getPopularVideos = createAsyncThunk(
   "homeVideos/getPopularVideos",
@@ -49,7 +57,6 @@ export const getPopularVideos = createAsyncThunk(
           pageToken: (getState() as RootState).homeVideos.nextPageToken,
         },
       });
-      console.log(data)
       dispatch(
         homeVideosSuccess({
           videos: data.items,
@@ -58,7 +65,6 @@ export const getPopularVideos = createAsyncThunk(
         })
       );
     } catch (error) {
-      console.log(error);
       dispatch(homeVideosFail((error as Error).message));
     }
   }
@@ -104,8 +110,7 @@ export const getVideosById = createAsyncThunk(
       });
       dispatch(selectedVideoSuccess(data.items[0]));
     } catch (error) {
-      console.log(error);
-      dispatch(selectedVideoFail(error));
+      dispatch(selectedVideoFail((error as Error).message));
     }
   }
 );
@@ -124,9 +129,8 @@ export const getRelatedVideos = createAsyncThunk(
         },
       });
       dispatch(relatedVideosSuccess(data.items));
-    } catch (error: any) {
-      console.log(error.response.data.message);
-      dispatch(relatedVideosFail(error.response.data.message));
+    } catch (error) {
+      dispatch(relatedVideosFail((error as Error).message));
     }
   }
 );
@@ -144,11 +148,8 @@ export const getVideosBySearch = createAsyncThunk(
           type: "video,channel",
         },
       });
-      console.log(data);
-
       dispatch(searchVideosSuccess(data.items));
     } catch (error) {
-      console.log(error);
       dispatch(searchVideosFail((error as Error).message));
     }
   }
@@ -177,16 +178,15 @@ export const getVideosByChannel = createAsyncThunk(
         },
       });
       dispatch(channelVideosSuccess(data.items));
-    } catch (error: any) {
-      console.log(error.response.data.message);
-      dispatch(channelVideosFail(error.response.data));
+    } catch (error) {
+      dispatch(channelVideosFail((error as Error).message));
     }
   }
 );
 
 export const getLikedVideos = createAsyncThunk(
   "likedVideos/getLikedVideos",
-  async (_, { dispatch,getState }) => {
+  async (_, { dispatch, getState }) => {
     try {
       dispatch(likedVideosRequest());
       const { data } = await request("/videos", {
@@ -194,17 +194,15 @@ export const getLikedVideos = createAsyncThunk(
           part: "snippet,contentDetails,statistics",
           maxResults: 20,
           type: "video",
-          myRating:"like"
+          myRating: "like",
         },
         headers: {
           Authorization: `Bearer ${(getState() as RootState).auth.accessToken}`,
         },
       });
       dispatch(likedVideosSuccess(data.items));
-      console.log(data.items);
-    } catch (error: any) {
-      console.log(error.response.data.message);
-      dispatch(likedVideosFail(error.response.data.message));
+    } catch (error) {
+      dispatch(likedVideosFail((error as Error).message));
     }
   }
 );
@@ -371,7 +369,6 @@ export const relatedVideosReducer = relatedVideosSlice.reducer;
 export const searchVideosReducer = searchVideosSlice.reducer;
 export const channelVideosReducer = channelVideosSlice.reducer;
 export const likedVideosReducer = likedVideosSlice.reducer;
-
 
 export default {
   homeVideos: homeVideosReducer,

@@ -5,12 +5,8 @@ import styles from "./Comment.module.css";
 import { CommentProps } from "../../utils/types";
 
 const Comment = ({ comment }: CommentProps) => {
-  const {
-    authorDisplayName,
-    authorProfileImageUrl,
-    textDisplay,
-    publishedAt
-  } = comment;
+  const { authorDisplayName, authorProfileImageUrl, textDisplay, publishedAt } =
+    comment;
   return (
     <div className={`${styles.comment} d-flex`}>
       <img

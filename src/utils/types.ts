@@ -95,10 +95,9 @@ export interface LikedVideosState {
   error?: string;
 }
 
-
 export interface Video {
   id:
-    string
+    | string
     | { videoId: string; kind: string }
     | { channelId: string; kind: string };
   snippet: {
@@ -165,4 +164,3 @@ export type SidebarProps = {
 export interface VideoMetaDataProps {
   selectedVideo: Video | null;
 }
-

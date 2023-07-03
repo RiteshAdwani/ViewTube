@@ -7,7 +7,7 @@ import { ChannelIcon, Video as VideoType } from "../../utils/types";
 import request from "../../api";
 import { useNavigate } from "react-router-dom";
 
-const RecommendedVideo = ({
+const HorizontalVideo = ({
   video,
   searchScreen,
   subscriptionsScreen,
@@ -90,16 +90,22 @@ const RecommendedVideo = ({
     <>
       <hr className="d-lg-none mb-4" />
       <div
-        className={`d-flex ${!isVideo ? "flex-row" : ""} ${isVideo ? "flex-column flex-sm-row" : ""} gap-3 mb-4 px-2`}
+        className={`d-flex ${!isVideo ? "flex-row" : ""} ${
+          isVideo ? "flex-column flex-sm-row" : ""
+        } gap-3 mb-4 px-2`}
         onClick={handleClick}
         role="button"
       >
-        <div className={`${styles.videoWrapper} ${isVideo ? "styles.video" : "styles.channel"}`}>
+        <div
+          className={`${styles.videoWrapper} ${
+            isVideo ? "styles.video" : "styles.channel"
+          }`}
+        >
           <LazyLoadImage
             src={medium.url}
             effect="opacity"
             alt="Thumbnail"
-            width="100%" 
+            width="100%"
             height="100%"
             className={`${!isVideo ? styles.channel : "rounded-4"}`}
           />
@@ -146,4 +152,4 @@ const RecommendedVideo = ({
   );
 };
 
-export default RecommendedVideo;
+export default HorizontalVideo;

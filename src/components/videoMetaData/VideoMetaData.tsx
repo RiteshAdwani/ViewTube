@@ -4,7 +4,7 @@ import moment from "moment";
 import numeral from "numeral";
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import ThumbDownOutlinedIcon from "@mui/icons-material/ThumbDownOutlined";
-import {  VideoMetaDataProps } from "../../utils/types";
+import { VideoMetaDataProps } from "../../utils/types";
 import { RootState, useAppDispatch } from "../../redux/store/store";
 import {
   checkSubscriptionStatus,
@@ -13,8 +13,7 @@ import {
 import { useSelector } from "react-redux";
 import CustomHelmet from "../helmet/CustomHelmet";
 
-
-const VideoMetaData = ({ selectedVideo}: VideoMetaDataProps) => {
+const VideoMetaData = ({ selectedVideo }: VideoMetaDataProps) => {
   const [showFullDescription, setShowFullDescription] = useState(false);
   const { channelId, channelTitle, description, title, publishedAt } =
     selectedVideo?.snippet || {};
@@ -40,11 +39,10 @@ const VideoMetaData = ({ selectedVideo}: VideoMetaDataProps) => {
 
   useEffect(() => {
     if (channelId) {
-      dispatch(checkSubscriptionStatus(channelId));
       dispatch(getChannelDetails(channelId));
       dispatch(checkSubscriptionStatus(channelId));
     }
-  }, [dispatch, channelId]);
+  }, [channelId, dispatch]);
 
   return (
     <div className={`${styles.videoMetaData} py-2`}>

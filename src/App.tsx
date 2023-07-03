@@ -73,61 +73,54 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <>
-        <Routes>
-          <Route
-            path="/"
-            element={<Layout darkMode={darkMode} toggleTheme={toggleTheme} />}
-          >
-            <Route path="/" element={<HomeScreen />} />
-          </Route>
 
-          <Route path="/auth" element={<LoginScreen />} />
+      <Routes>
+        <Route
+          path="/"
+          element={<Layout darkMode={darkMode} toggleTheme={toggleTheme} />}
+        >
+          <Route path="/" element={<HomeScreen />} />
+        </Route>
 
-          <Route
-            path="/search/:query"
-            element={<Layout darkMode={darkMode} toggleTheme={toggleTheme} />}
-          >
-            <Route path="/search/:query" element={<SearchScreen />} />
-          </Route>
+        <Route path="/auth" element={<LoginScreen />} />
 
-          <Route
-            path="/watch/:id"
-            element={<Layout darkMode={darkMode} toggleTheme={toggleTheme} />}
-          >
-            <Route path="/watch/:id" element={<WatchScreen />} />
-          </Route>
+        <Route
+          path="/search/:query"
+          element={<Layout darkMode={darkMode} toggleTheme={toggleTheme} />}
+        >
+          <Route path="/search/:query" element={<SearchScreen />} />
+        </Route>
 
-          <Route
-            path="/feed/subscriptions"
-            element={<Layout darkMode={darkMode} toggleTheme={toggleTheme} />}
-          >
-            <Route
-              path="/feed/subscriptions"
-              element={<SubscriptionsScreen />}
-            />
-          </Route>
+        <Route
+          path="/watch/:id"
+          element={<Layout darkMode={darkMode} toggleTheme={toggleTheme} />}
+        >
+          <Route path="/watch/:id" element={<WatchScreen />} />
+        </Route>
 
-          <Route
-            path="/channel/:channelId"
-            element={<Layout darkMode={darkMode} toggleTheme={toggleTheme} />}
-          >
-            <Route path="/channel/:channelId" element={<ChannelScreen />} />
-          </Route>
+        <Route
+          path="/feed/subscriptions"
+          element={<Layout darkMode={darkMode} toggleTheme={toggleTheme} />}
+        >
+          <Route path="/feed/subscriptions" element={<SubscriptionsScreen />} />
+        </Route>
 
-          <Route
-            path="/feed/liked"
-            element={<Layout darkMode={darkMode} toggleTheme={toggleTheme} />}
-          >
-            <Route
-              path="/feed/liked"
-              element={<LikedVideosScreen />}
-            />
-          </Route>
+        <Route
+          path="/channel/:channelId"
+          element={<Layout darkMode={darkMode} toggleTheme={toggleTheme} />}
+        >
+          <Route path="/channel/:channelId" element={<ChannelScreen />} />
+        </Route>
 
-          <Route path="/*" element={<Navigate to="/" />} />
-        </Routes>
-      </>
+        <Route
+          path="/feed/liked"
+          element={<Layout darkMode={darkMode} toggleTheme={toggleTheme} />}
+        >
+          <Route path="/feed/liked" element={<LikedVideosScreen />} />
+        </Route>
+
+        <Route path="/*" element={<Navigate to="/" />} />
+      </Routes>
     </ThemeProvider>
   );
 };

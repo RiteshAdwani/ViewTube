@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Video.module.css";
-import { Video as VideoType , ChannelIcon} from "../../utils/types";
+import { Video as VideoType, ChannelIcon } from "../../utils/types";
 import request from "../../api";
 import moment from "moment";
 import numeral from "numeral";
@@ -28,13 +28,15 @@ const Video = ({
   const [views, setViews] = useState<number | null>(null);
   const [duration, setDuration] = useState<string | null>(null);
   const [channelIcon, setChannelIcon] = useState<ChannelIcon | null>(null);
-  const _videoId = 
-    (!channelScreen && (typeof id === "string"
-      ? id
-      : "videoId" in id
-      ? id.videoId
-      : id.channelId)) 
-      || (channelScreen && contentDetails?.videoId ) || id;
+  const _videoId =
+    (!channelScreen &&
+      (typeof id === "string"
+        ? id
+        : "videoId" in id
+        ? id.videoId
+        : id.channelId)) ||
+    (channelScreen && contentDetails?.videoId) ||
+    id;
   const navigate = useNavigate();
 
   const handleVideoClick = () => {
@@ -42,10 +44,6 @@ const Video = ({
   };
   useEffect(() => {
     const getVideoDetails = async () => {
-      if (!contentDetails) {
-        return;
-      }
-        
       const {
         data: { items },
       } = await request("/videos", {
@@ -58,7 +56,7 @@ const Video = ({
       setViews(items[0]?.statistics?.viewCount);
     };
     getVideoDetails();
-  }, [_videoId,contentDetails]);
+  }, [_videoId, contentDetails]);
 
   useEffect(() => {
     const getChannelIcon = async () => {
