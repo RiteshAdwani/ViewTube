@@ -74,3 +74,8 @@
 - Update the Firebase and YouTube API configurations in the application.
 - Run the application using `npm run dev`.
 - Access the application in your web browser at localhost.
+
+## Note:
+
+- Sometimes the details might not be fetched properly or certain features won't work probably because of the API.
+- Try logging out and then login again in such a case and might probably solve the issue
